@@ -1,208 +1,71 @@
-# RuyiBigScreen｜如意数据大屏
-
-RuyiBigScreen 是一个教学型数据可视化大屏项目，用 Vue 3、TypeScript 和 ECharts 演示一个完整前端大屏从页面布局、mock 数据、状态管理到自动化验证的基本工程结构。
+# AI-Ops-Visual-Dashboard｜AI运维可视化大屏
+AI-Ops-Visual-Dashboard 是面向AIOps运维场景的前端实训大屏项目，使用 Vue 3、TypeScript 和 ECharts 搭建完整运维监控可视化工程，覆盖指标展示、实时模拟数据流、全局状态管理、单元自动化测试全流程，适合前端运维可视化课程作业。
 
 ## 项目预览
-
-![如意数据大屏](docs/screenshots/dashboard-1920x1080.png)
+![AI运维可视化大屏](docs/screenshots/dashboard-1920x1080.png)
 
 ## 项目简介
-
-本项目面向前端初学者、数据可视化学习者和 AI 辅助编程课堂案例。它当前保持纯前端实现，默认使用 mock 数据模拟教学数据中心的运行状态，适合用来学习数据大屏的页面拆分、图表封装、数据服务分层和工程化验证流程。
-
-项目不是已经接入真实后端的生产系统，而是一个可继续扩展的教学样例：现在可以通过本地 mock 运行，后续可以平滑切换到 API 数据源。
+本项目面向前端开发、运维可视化、AIOps实训学习者，纯前端实现，默认使用Mock数据模拟企业IT运维监控指标，完整演示运维大屏页面布局、图表封装、数据分层、工程化规范整套流程。
+项目为教学实训案例，无后端服务依赖，本地Mock即可运行，支持无缝切换真实后端API数据源。
 
 ## 核心特性
-
-- 16:9 风格的数据大屏布局，适合课堂演示和项目截图。
-- Vue 3 + TypeScript 组织页面、组件、图表和服务层。
-- ECharts 封装访问趋势、分类占比、城市排名、雷达模型和中心态势总览。
-- Pinia 管理 dashboard 数据加载和页面状态。
-- mock 模式下提供稳定的教学演示数据。
-- Axios API 通道已预留，可通过环境变量切换数据源。
-- Vitest 覆盖工具函数和 dashboard service 基础行为。
-- Playwright 覆盖首页可见性、实时刷新和控制台错误检查。
-- ESLint、Prettier、Stylelint 保持代码风格和质量约束。
-- 自动化截图脚本生成 README 与课程资料可复用的展示图。
+- 16:9标准大屏深色科技布局，适配课堂展示与作业交付截图
+- Vue3 + TS 分层封装页面、通用组件、运维图表模块
+- ECharts封装系统流量趋势、服务占比、节点负载、服务健康雷达、业务拓扑总览
+- Pinia统一管理大屏加载状态与全局运维指标数据
+- Mock模式提供稳定模拟运维监控数据，本地开箱即用
+- Axios请求层预留API切换能力，通过环境变量一键切换数据源
+- Vitest覆盖工具函数、运维服务单元校验
+- Playwright自动化页面渲染、控制台异常检测、自动截图
+- ESLint、Prettier、Stylelint统一代码规范，保障工程整洁
+- 自动化截图脚本，一键生成作业展示封面图
 
 ## 技术栈
-
 - 前端框架：Vue 3、Vite、TypeScript
-- 图表渲染：ECharts
+- 可视化图表：ECharts
 - 状态管理：Pinia
-- 数据访问：Axios、service 分层
-- mock 支撑：MSW、本地实时数据模拟器
+- 数据请求：Axios、分层Service服务
+- 模拟数据：MSW、实时运维指标模拟器
 - 单元测试：Vitest、Vue Test Utils
-- E2E 与截图：Playwright
-- 代码质量：ESLint、Prettier、Stylelint
+- E2E自动化：Playwright
+- 代码规范：ESLint、Prettier、Stylelint
 
 ## 页面内容
+- 顶部标题与实时时钟：展示“AI运维可视化大屏 AI-Ops-Dashboard”系统运行时间
+- 核心运维指标卡片：今日服务请求量、实时故障工单、在线活跃节点、系统整体健康度
+- 流量趋势图表：展示服务器访问流量、异常请求滑动时序曲线
+- 服务分类占比：业务服务、中间件、数据库、网关负载占比分析
+- 运维中心拓扑总览：以运维中枢为核心，展示各业务节点数据流关系
+- 城市机房负载排名：各地区服务器集群负载降序展示
+- 运维能力雷达图：系统监控、告警处理、故障排查、日志分析、资源调度维度评分
+- 实时告警动态：滚动展示系统异常、服务下线、资源超限等运维事件
 
-- 顶部标题与当前时间：展示“如意数据大屏 RuyiBigScreen”和实时钟表。
-- 核心指标卡片：今日访问量、实时订单数、活跃用户数、系统健康度。
-- 访问趋势：展示访问量和订单数的滑动趋势窗口。
-- 分类占比：展示课程学习、项目实战、资料下载等分类占比。
-- 中心态势总览：用“如意中枢”和周边业务节点表示教学数据流转。
-- 城市访问排名：展示不同城市访问量排序。
-- 能力雷达模型：展示前端基础、图表配置、数据建模等学习能力维度。
-- 实时动态与告警：展示教学数据中心的最新动态和轻量告警。
-
-## Mock 数据
-
-当前项目默认使用前端 mock 数据。页面进入时会加载一次 dashboard 数据：
-
-- 顶部指标来自 mock summary。
-- 访问趋势、分类占比、城市排名和雷达模型来自 mock 数据集。
-- 中心态势总览使用 mock 节点构造业务关系图。
-- 实时动态与告警使用 mock 活动列表。
-
-这些内容都来自本地 mock 数据，不代表真实后端数据。
+## Mock 运维数据
+项目默认启用前端Mock模拟运维监控数据，页面加载自动拉取指标集：
+- 顶部核心健康指标来自运维汇总Mock接口
+- 流量趋势、服务占比、机房负载、能力雷达均由模拟数据集提供
+- 拓扑总览使用节点关系Mock数据构建业务流转图
+- 实时告警列表自动生成滚动运维事件日志
+所有数据仅为教学模拟，不对接真实生产运维环境。
 
 ## 项目结构
-
 ```text
 src/
-  app/              # 应用入口与全局样式
-  assets/           # 静态资源与全局样式资源
-  charts/           # ECharts 图表组件
-  components/       # 通用 UI 组件
-  layouts/          # 大屏布局
-  logs/             # 日志封装
-  mocks/            # mock 数据与 MSW handler
-  services/         # 数据访问与数据源切换
-  stores/           # Pinia store
-  tests/            # 单元测试与 E2E 测试
-  types/            # TypeScript 类型
-  utils/            # 工具函数
+  app/              # 全局入口、全局样式配置
+  assets/           # 静态图片、全局主题样式
+  charts/           # 封装各类运维ECharts图表组件
+  components/       # 通用卡片、告警、表格公共组件
+  layouts/          # 大屏整体布局容器
+  logs/             # 前端日志封装工具
+  mocks/            # 运维模拟数据、MSW拦截规则
+  services/         # 运维指标服务、数据源切换层
+  stores/           # Pinia全局状态仓库
+  tests/            # 单元测试、E2E自动化测试用例
+  types/            # TypeScript运维指标类型定义
+  utils/            # 时间格式化、图表自适应工具
+views/
+  DashboardView.vue # 运维大屏主页面
 docs/
-  screenshots/      # README 和课程资料使用的项目截图
+  screenshots/      # README作业展示截图存放目录
 scripts/
-  capture-dashboard.mjs
-```
-
-## 快速开始
-
-环境要求：
-
-- Node.js 版本需满足当前依赖要求。
-- 首次运行 Playwright 前，请确保本机已安装浏览器依赖。
-
-安装依赖：
-
-```bash
-npm install
-```
-
-启动开发服务：
-
-```bash
-npm run dev
-```
-
-浏览器访问：
-
-```text
-http://127.0.0.1:10001/
-```
-
-## 常用命令
-
-```bash
-npm run dev
-npm run build
-npm run preview
-npm run lint
-npm run format
-npm run test
-npm run test:e2e
-npm run screenshot
-npm run screenshot:dashboard
-```
-
-## 数据源说明
-
-项目默认使用 mock 数据源。mock 模式下，`dashboardService` 会返回本地 dashboard mock 数据，页面不会请求真实后端。
-
-页面组件只通过 `src/services/dashboardService.ts` 获取数据，不直接读取 mock 文件。
-
-如果后续需要接入真实 API，可以设置：
-
-```bash
-VITE_DATA_SOURCE=api
-VITE_API_BASE_URL=https://your-api.example.com
-```
-
-在 API 模式下，服务层会通过 Axios 访问预留接口 `/dashboard`。当前仓库没有附带真实后端服务。
-
-## 自动化截图
-
-项目提供 Playwright 截图脚本，用于生成固定尺寸的大屏展示图。先启动开发服务：
-
-```bash
-npm run dev
-```
-
-再执行截图：
-
-```bash
-npm run screenshot
-```
-
-默认访问地址：
-
-```text
-http://127.0.0.1:10001/
-```
-
-默认输出文件：
-
-```text
-docs/screenshots/dashboard-1920x1080.png
-```
-
-截图视口为 `1920x1080`。脚本会等待标题、指标卡片和中心态势总览渲染完成；如果浏览器 console 出现 error，截图会保留，但命令会失败并打印错误列表。
-
-## 测试与质量保障
-
-项目包含以下验证手段：
-
-- TypeScript 构建检查。
-- ESLint 检查 TypeScript 与 Vue 代码。
-- Stylelint 检查样式。
-- Vitest 单元测试。
-- Playwright E2E 测试。
-- Playwright 自动化截图。
-- Vite 生产构建验证。
-
-推荐在提交前运行：
-
-```bash
-npm run lint
-npm run test
-npm run build
-npm run test:e2e
-```
-
-## 适合学习什么
-
-- Vue 3 项目结构和组件拆分。
-- 数据大屏 16:9 布局与响应式约束。
-- ECharts 图表封装和 resize 处理。
-- mock 数据、service 层和 API 切换设计。
-- Pinia 状态管理与页面数据加载。
-- TypeScript 类型建模。
-- Vitest 单元测试和 Playwright E2E 测试。
-- 自动化截图在 README、课程资料和视觉验收中的用法。
-- ESLint、Prettier、Stylelint 等前端工程规范。
-
-## 后续计划
-
-- 接入真实 API 示例。
-- 增加更多教学场景图表组件。
-- 增加主题切换能力。
-- 增加实时数据模拟和视觉回归测试示例。
-- 补充部署到静态站点平台的示例流程。
-
-## License
-
-本项目使用 MIT License，详见 [LICENSE](LICENSE)。
+  capture-dashboard.mjs # 自动截图脚本
