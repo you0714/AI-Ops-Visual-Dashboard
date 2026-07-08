@@ -13,8 +13,7 @@ export interface SummaryMetric {
 
 export interface TrendPoint {
   time: string
-  visits: number
-  orders: number
+  value: number
 }
 
 export interface CategoryDistribution {

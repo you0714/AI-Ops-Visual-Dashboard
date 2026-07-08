@@ -3,8 +3,9 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [vue()],
+  base: mode === 'production' ? '/AI-Ops-Visual-Dashboard/' : '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -15,4 +16,4 @@ export default defineConfig({
     globals: true,
     include: ['src/tests/unit/**/*.test.ts'],
   },
-})
+}))

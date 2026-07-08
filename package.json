@@ -1,8 +1,9 @@
 {
-  "name": "ruyibigscreen",
+  "name": "ai-ops-visual-dashboard",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "AIOps运维可视化大屏实训项目，基于Vue3+TS+ECharts实现运维指标监控大屏",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 10001",
     "build": "vue-tsc -b && vite build",

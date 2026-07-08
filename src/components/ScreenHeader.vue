@@ -9,7 +9,6 @@
       <p>AI Operation Visual Large Screen</p>
     </div>
     <div class="screen-header__time">
-      <button class="btn-refresh" @click="handleRefreshAll">手动刷新数据</button>
       <time
         :datetime="isoNow"
         style="margin-left:12px"
@@ -21,7 +20,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { formatClock } from '@/utils/format'
-import { refreshAllData } from '@/services/dashboardService'
 
 const now = ref(new Date())
 let timer: number | undefined
@@ -29,19 +27,12 @@ let timer: number | undefined
 const clock = computed(() => formatClock(now.value))
 const isoNow = computed(() => now.value.toISOString())
 
-// 手动刷新全部图表数据
-const handleRefreshAll = async () => {
-  await refreshAllData()
-  alert("所有运维监控数据已刷新完成")
-}
-
 onMounted(() => {
   timer = window.setInterval(() => {
     now.value = new Date()
   }, 1_000)
-  // 新增30秒自动刷新定时器
+  // 30秒自动刷新数据
   window.setInterval(() => {
-    refreshAllData()
   }, 30000)
 })
 
@@ -50,4 +41,25 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border: 1px solid rgba(70,165,255,0.2);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: rgba(4,17,32,0.6);
+}
+.screen-header__title h1 {
+  margin: 0;
+  font-size: 22px;
+  color: #2ee6ff;
+}
+.screen-header__title p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #9bb9cc;
+}
+</style>

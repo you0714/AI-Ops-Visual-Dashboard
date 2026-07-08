@@ -14,55 +14,80 @@ const chartRef = ref<HTMLDivElement | null>(null);
 let chartInstance: echarts.ECharts | null = null;
 
 const renderChart = () => {
-  if (!chartRef.value) return;
-  if (!chartInstance) chartInstance = echarts.init(chartRef.value);
+  if (!chartRef.value) return
+  chartInstance ??= echarts.init(chartRef.value)
 
   const option: echarts.EChartsOption = {
+    backgroundColor: 'transparent',
     tooltip: {
-      trigger: "axis",
-      backgroundColor: "rgba(0, 20, 45, 0.8)",
-      textStyle: { color: "#e8fbff" }
+      trigger: 'axis',
+      backgroundColor: 'rgba(4, 17, 32, 0.92)',
+      borderColor: 'rgba(46, 230, 255, 0.3)',
+      textStyle: { color: '#f4fbff' },
+      formatter: (params: unknown) => {
+        const list = Array.isArray(params) ? params : [params]
+        const item = list[0] as { name?: string; value?: number } | undefined
+        if (!item?.name) {
+          return ''
+        }
+        return `${item.name}<br/>吞吐 ${item.value ?? 0}`
+      },
     },
-    grid: { left: 10, right: 10, top: 30, bottom: 30 },
+    grid: { left: 18, right: 12, top: 20, bottom: 24 },
     xAxis: {
-      type: "category",
-      data: props.data.map(item => item.time),
-      axisLine: { lineStyle: { color: "rgba(70,165,255,0.2)" } },
-      axisLabel: { color: "#a6d8ff" },
-      axisTick: { lineStyle: { color: "rgba(70,165,255,0.2)" } }
+      type: 'category',
+      data: props.data.map((item) => item.time),
+      axisLine: { lineStyle: { color: 'rgba(70, 165, 255, 0.3)' } },
+      axisLabel: { color: '#e3f5ff' },
+      axisTick: { lineStyle: { color: 'rgba(70, 165, 255, 0.3)' } },
     },
     yAxis: {
-      type: "value",
-      axisLine: { lineStyle: { color: "rgba(70,165,255,0.2)" } },
-      splitLine: { lineStyle: { color: "rgba(70,165,255,0.1)" } },
-      axisLabel: { color: "#a6d8ff" }
+      type: 'value',
+      axisLine: { show: false },
+      splitLine: { lineStyle: { color: 'rgba(70, 165, 255, 0.16)' } },
+      axisLabel: { color: '#e3f5ff' },
     },
     series: [
       {
-        data: props.data.map(item => item.value),
-        type: "line",
+        name: '吞吐量',
+        data: props.data.map((item) => item.value),
+        type: 'line',
         smooth: true,
-        color: "#22c9ff",
-        lineStyle: { width: 2 },
+        symbol: 'circle',
+        symbolSize: 5,
+        lineStyle: { width: 3, color: '#2ee6ff' },
+        itemStyle: { color: '#7ef2b2', shadowBlur: 10, shadowColor: 'rgba(46, 230, 255, 0.4)' },
         areaStyle: {
           color: {
-            type: "linear",
-            x: 0, y: 0, x2: 0, y2: 1,
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
             colorStops: [
-              { offset: 0, color: "rgba(34, 201, 255, 0.4)" },
-              { offset: 1, color: "rgba(34, 201, 255, 0)" }
-            ]
-          }
-        }
-      }
-    ]
-  };
+              { offset: 0, color: 'rgba(46, 230, 255, 0.28)' },
+              { offset: 1, color: 'rgba(46, 230, 255, 0.03)' },
+            ],
+          },
+        },
+      },
+    ],
+  }
 
-  chartInstance.setOption(option);
-};
+  chartInstance.setOption(option)
+}
 
-watch(() => props.data, renderChart, { deep: true });
-onMounted(renderChart);
+watch(() => props.data, renderChart, { deep: true, flush: 'post' });
+onMounted(() => {
+  requestAnimationFrame(() => renderChart())
+});
 </script>
 
-<style scoped></style>
+<style scoped>
+.chart {
+  width: 100%;
+  height: 170px;
+  min-height: 170px;
+  min-width: 0;
+}
+</style>

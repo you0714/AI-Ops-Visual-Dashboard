@@ -48,7 +48,7 @@ src/
     MetricCard.vue
     ScreenHeader.vue
   charts/
-    LineTrendChart.vue
+    LineGitHub Copilot: Sign In.vue
     BarRankingChart.vue
     PieStatusChart.vue
     RadarAbilityChart.vue

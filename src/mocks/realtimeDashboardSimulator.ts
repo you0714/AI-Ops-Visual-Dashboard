@@ -32,6 +32,7 @@ const activityTemplates = {
   ],
 } satisfies Record<ActivityItem['level'], string[]>
 
+// 导出实时刷新函数（供store使用）
 export function nextDashboardFrame(): DashboardData {
   frameIndex += 1
   state = {
@@ -103,18 +104,13 @@ function updateSummaryMetrics(summary: SummaryMetric[]): SummaryMetric[] {
 
 function updateTrendWindow(data: DashboardData) {
   const visits = findMetric(data.summary, 'visits')
-  const orders = findMetric(data.summary, 'orders')
   const lastTrend = data.trend.at(-1)
 
   const nextPoint = {
     time: formatTime(new Date()),
-    visits: Math.max(
-      lastTrend?.visits ?? 0,
+    value: Math.max(
+      lastTrend?.value ?? 0,
       Math.round(visits.value / 4 + randomInt(1200, 3200)),
-    ),
-    orders: Math.max(
-      lastTrend?.orders ?? 0,
-      Math.round(orders.value / 6 + randomInt(60, 220)),
     ),
   }
 
@@ -138,6 +134,7 @@ function createRealtimeActivity(): ActivityItem {
     id: `rt-${frameIndex}-${Date.now()}`,
     time: formatClock(new Date()),
     level,
+    title: message,
     message,
   }
 }
@@ -267,3 +264,5 @@ function round1(value: number) {
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))
 }
+
+// ========== 删除原文件末尾错误代码 export default mockDashboardData ==========

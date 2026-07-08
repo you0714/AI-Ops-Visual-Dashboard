@@ -32,4 +32,9 @@ export const useDashboardStore = defineStore('dashboard', {
       }
     },
   },
+  getters: {
+    dashboard(state): DashboardData | null {
+      return state.data ?? null
+    }
+  }
 })
